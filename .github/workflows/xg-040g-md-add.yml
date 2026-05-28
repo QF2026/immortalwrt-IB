@@ -132,7 +132,7 @@ jobs:
           cd openwrt && make defconfig
 
       - name: Show config
-        run: cat openwrt/.config && cp openwrt/.config "tmp/w-$(date +%Y%m%d-%H%M%S).config"
+        run: cat openwrt/.config
 
       - name: Cache staging_dir and ccache
         uses: actions/cache@v4
@@ -164,9 +164,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.source.name }}-firmware   # 区分 openwrt 和 immortalwrt
-          path: |
-            openwrt/bin/targets/airoha/an7581/*
-            tmp/*.config
+          path: openwrt/bin/targets/airoha/an7581/*
           retention-days: 7
 
       - name: Release firmware to GitHub Releases
