@@ -132,7 +132,7 @@ jobs:
           cd openwrt && make defconfig
 
       - name: Show config
-        run: cat openwrt/.config && cp openwrt/.config "../xg-140g-md/w-$(date+%Y%m%d-%h%M%S).config"
+        run: cat openwrt/.config && cp openwrt/.config "../xg-140g-md/w-$(date +%Y%m%d-%H%M%S).config"
 
       - name: Cache staging_dir and ccache
         uses: actions/cache@v4
