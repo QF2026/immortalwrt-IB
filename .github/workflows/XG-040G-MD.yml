@@ -1,4 +1,4 @@
-name: Build xg-040g-md for me(test)
+name: Build xg-040g-md(test)
 on: workflow_dispatch
 jobs:
   build:
@@ -78,13 +78,14 @@ jobs:
           cp -af xg-040g-md/patch-25.12/target/linux/generic/hack-6.12/431-v6.14-mtd-spinand-Add-support-for-SkyHigh-S35ML-3-family.patch openwrt/target/linux/generic/hack-6.12/431-v6.14-mtd-spinand-Add-support-for-SkyHigh-S35ML-3-family.patch
           cp -af xg-040g-md/patch-25.12/target/linux/generic/hack-6.12/600-mtd-spinand-add-skyhigh-robust-read-workaround.patch openwrt/target/linux/generic/hack-6.12/600-mtd-spinand-add-skyhigh-robust-read-workaround.patch
 
-      - name: Update feeds and add luci-app-airoha-npu
+      - name: Update feeds and add luci-app-airoha-npu easytier
         run: |
           cd openwrt && ./scripts/feeds update -a && ./scripts/feeds install -a
           git clone https://github.com/rchen14b/luci-app-airoha-npu.git package/luci-app-airoha-npu
           # 增加easytier&更改默认IP
           git clone --depth 1 https://github.com/EasyTier/luci-app-easytier.git package/luci-app-easytier
           sed -i 's/192.168.1.1/192.168.1.200/g' package/base-files/files/bin/config_generate
+          
           sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' package/luci-app-airoha-npu/Makefile
           sed -i 's/"getFrameEngine" \]/"getFrameEngine", "getVlanOffload", "getPPPoEOffload" ]/' package/luci-app-airoha-npu/root/usr/share/rpcd/acl.d/luci-app-airoha-npu.json
           sed -i 's/"setOverclock" \]/"setOverclock", "setVlanOffload", "setPPPoEOffload" ]/' package/luci-app-airoha-npu/root/usr/share/rpcd/acl.d/luci-app-airoha-npu.json
@@ -92,7 +93,7 @@ jobs:
 
           make defconfig
 
-      - name: Enable LuCI and Orthers(remove wireguard)
+      - name: Enable LuCI and Orthers
         run: |
           sed -i 's/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/g' openwrt/.config
           sed -i 's/# CONFIG_PACKAGE_luci-app-package-manager is not set/CONFIG_PACKAGE_luci-app-package-manager=y/g' openwrt/.config
@@ -106,9 +107,7 @@ jobs:
           sed -i 's/^\(CONFIG_PACKAGE_.*passwall.*\)=\(y\|m\)/# \1 is not set/' openwrt/.config
           sed -i 's/^\(CONFIG_PACKAGE_.*rclone.*\)=\(y\|m\)/# \1 is not set/' openwrt/.config
           sed -i 's/^\(CONFIG_PACKAGE_.*wireguard.*\)=\(y\|m\)/# \1 is not set/' openwrt/.config
-          sed -i 's/CONFIG_PACKAGE_luci-proto-wireguard=y/# CONFIG_PACKAGE_luci-proto-wireguard is not set/g' openwrt/.config
-          sed -i 's/CONFIG_PACKAGE_kmod-wireguard=y/# CONFIG_PACKAGE_kmod-wireguard is not set/g' openwrt/.config
-          sed -i 's/CONFIG_PACKAGE_wireguard-tools=y/# CONFIG_PACKAGE_wireguard-tools is not set/g' openwrt/.config
+          
           sed -i 's/# CONFIG_PACKAGE_kmod-tun is not set/CONFIG_PACKAGE_kmod-tun=y/g' openwrt/.config
           sed -i 's/# CONFIG_PACKAGE_luci-app-filemanager is not set/CONFIG_PACKAGE_luci-app-filemanager=y/g' openwrt/.config
           sed -i 's/# CONFIG_PACKAGE_luci-i18n-filemanager-zh-cn is not set/CONFIG_PACKAGE_luci-i18n-filemanager-zh-cn=y/g' openwrt/.config
