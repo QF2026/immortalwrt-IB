@@ -78,7 +78,7 @@ jobs:
           cp -af xg-140g-md/patch-25.12/target/linux/generic/hack-6.12/431-v6.14-mtd-spinand-Add-support-for-SkyHigh-S35ML-3-family.patch openwrt/target/linux/generic/hack-6.12/431-v6.14-mtd-spinand-Add-support-for-SkyHigh-S35ML-3-family.patch
           cp -af xg-140g-md/patch-25.12/target/linux/generic/hack-6.12/600-mtd-spinand-add-skyhigh-robust-read-workaround.patch openwrt/target/linux/generic/hack-6.12/600-mtd-spinand-add-skyhigh-robust-read-workaround.patch
 
-          sed -i 's/dnsmasq/dnsmasq-full/g' openwrt/include/target.mk
+          #sed -i 's/dnsmasq/dnsmasq-full/g' openwrt/include/target.mk
 
       - name: Update feeds and add luci-app-airoha-npu
         run: |
