@@ -1,4 +1,4 @@
-name: Build xg-040g-md(test)
+name: Build xg-040g-md(for me)
 on: workflow_dispatch
 jobs:
   build:
@@ -105,7 +105,7 @@ jobs:
           sed -i 's/# CONFIG_PACKAGE_luci-app-airoha-npu is not set/CONFIG_PACKAGE_luci-app-airoha-npu=y/g' openwrt/.config
           # 增删相关插件（先将相关值恢复）
           sed -i 's/^\(CONFIG_PACKAGE_.*passwall.*\)=\(y\|m\)/# \1 is not set/' openwrt/.config
-          sed -i 's/^\(CONFIG_PACKAGE_.*rclone.*\)=\(y\|m\)/# \1 is not set/' openwrt/.config
+          # sed -i 's/^\(CONFIG_PACKAGE_.*rclone.*\)=\(y\|m\)/# \1 is not set/' openwrt/.config
           sed -i 's/^\(CONFIG_PACKAGE_.*wireguard.*\)=\(y\|m\)/# \1 is not set/' openwrt/.config
           
           sed -i 's/# CONFIG_PACKAGE_kmod-tun is not set/CONFIG_PACKAGE_kmod-tun=y/g' openwrt/.config
