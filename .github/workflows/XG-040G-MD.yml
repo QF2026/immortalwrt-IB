@@ -14,11 +14,11 @@ jobs:
       matrix:
         source:
           - name: openwrt
-            url: https://github.com/openwrt/openwrt/archive/refs/tags/v25.12.4.tar.gz
+            url: https://github.com/openwrt/openwrt/archive/refs/tags/v25.12.5.tar.gz
             tag_prefix: openwrt-xg-040g-md
             cache_key: openwrt
           - name: immortalwrt
-            url: https://github.com/immortalwrt/immortalwrt/archive/refs/tags/v25.12.0.tar.gz
+            url: https://github.com/immortalwrt/immortalwrt/archive/refs/tags/v25.12.1.tar.gz
             tag_prefix: immortalwrt-xg-040g-md
             cache_key: immortalwrt
     steps:
